@@ -277,14 +277,6 @@ def main():
     base_url = f"https://{hostname}/api/v3"
     g = Github(base_url=base_url, login_or_token=GIT_TOKEN)
 
-    # core_rate_limit = g.get_rate_limit().core
-    # reset_timestamp = calendar.timegm(core_rate_limit.reset.timetuple())
-    # sleep_time = reset_timestamp - calendar.timegm(time.gmtime())
-    # print(f"Remaining searches ==> {g.get_rate_limit().search.remaining}")
-    # print(f"{core_rate_limit.remaining=}")
-    # print(f"{reset_timestamp=}")
-    # print(f"{sleep_time=}")
-
     xlsx = get_xlsx_obj()
     #orgs = get_orgs_list(g)
     # Instead of iterating orgs, we know that we need only "uuc".
