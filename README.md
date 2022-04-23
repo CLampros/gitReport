@@ -12,3 +12,5 @@ As an example
 # cat .env
 GIT_TOKEN = ghp_kjdf422ewrwekrjwlrkrDSFdfewrfDsdfewf
 ```
+
+Python version 3.7+
