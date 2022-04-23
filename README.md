@@ -9,6 +9,6 @@ You should include .env file on the root repo directory
 and define GIT_TOKEN variable.  
 As an example
 '''
-# cat .env
+> cat .env
 GIT_TOKEN = ghp_kjdf422ewrwekrjwlrkrDSFdfewrfDsdfewf
 ```
