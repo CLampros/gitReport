@@ -266,6 +266,29 @@ def get_memebers_repo_permissions(g, o, xlsx):
                     row += 1
 
 
+def search_repo_files(g, o, xlsx):
+    rate_limit = g.get_rate_limit()
+    rate = rate_limit.search
+    if rate.remaining == 0:
+        print(f'You have 0/{rate.limit} API calls remaining. Reset time: {rate.reset}')
+        return
+    else:
+        print(f'You have {rate.remaining}/{rate.limit} API calls remaining')
+
+    for org in g.get_user().get_orgs():
+        if org.login == o:
+            row = 2
+            for repo in org.get_repos():
+                print(f"{repo.name}")
+                filename = "requirements.yml"
+                keyword = "ansible-role-gts-cm-upload-results.git"
+                q = "NOT ansible_role_sfs_upload.git filename:requirements.yml org:uuc"
+                query = f"{keyword} in:filename:{filename} path:/ repo:{repo.name}"
+                results = g.search_code(q, order='desc')
+                for result in results:
+                    print(f"{result}")
+                print(f"\n\n\n")
+
 def main():
     # Setup.
     load_dotenv()
@@ -281,13 +304,16 @@ def main():
     #orgs = get_orgs_list(g)
     # Instead of iterating orgs, we know that we need only "uuc".
     # The get_orgs_repo_details() has been modified accordingly. 
-    get_orgs_repo_details(g, "uuc", xlsx)
+    #get_orgs_repo_details(g, "uuc", xlsx)
 
     # Get teams permissions for each repo.
-    get_teams_repo_permissions(g, "uuc", xlsx)
+    #get_teams_repo_permissions(g, "uuc", xlsx)
 
     # Get members permissions for each repo.
     #get_memebers_repo_permissions(g, "uuc", xlsx)
+
+    # Get requirements.txt from each repo.
+    search_repo_files(g, "uuc", xlsx)
 
     save_and_close_xlsx_obj(xlsx)
 
